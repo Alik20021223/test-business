@@ -1,3 +1,4 @@
+import { getLineHeightPx } from '@/utils';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 type WrapCalc = {
@@ -28,12 +29,7 @@ export function useTextWrap(
     const el = ref.current;
     if (!el) return;
 
-    const style = getComputedStyle(el);
-    const fontSize = style.fontSize;
-    const lineHeightPx =
-      style.lineHeight === 'normal'
-        ? Math.round(parseFloat(fontSize) * 1.4)
-        : Math.round(parseFloat(style.lineHeight));
+    const lineHeightPx = getLineHeightPx(el)
 
     // Точная разбивка на строки через Range API
     const range = document.createRange();
