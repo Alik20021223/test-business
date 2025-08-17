@@ -1,0 +1,56 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "types": [
+      "node"
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": [
+        "*"
+      ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@assets/*": [
+        "app/assets/*"
+      ],
+      "@components/*": [
+        "shared/components/*"
+      ],
+      "@shadcn/*": [
+        "shared/shadcn/*"
+      ], // шадси-компоненты
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@utils/*": [
+        "shared/utils/*"
+      ],
+      "@lib/*": [
+        "shared/lib/*"
+      ],
+      "@feature/*": [
+        "feature/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@widgets/*": [
+        "widgets/*"
+      ],
+      "@entities/*": [
+        "entities/*"
+      ]
+    }
+  },
+}
