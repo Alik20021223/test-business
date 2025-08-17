@@ -1,3 +1,5 @@
+import { IndicatorState } from '@entities/main/types';
+
 export function getLineHeightPx(el: HTMLElement): number {
   const cs = getComputedStyle(el);
   const lh = cs.lineHeight;
@@ -35,3 +37,15 @@ export function getLineHeightPx(el: HTMLElement): number {
 
   return lhPx;
 }
+
+export const parseIndicator = (v: string): IndicatorState => {
+  if (v.trim() === '') return { n: null, positive: false };
+  const positive = v.trim().startsWith('+');
+  const raw = v.replace('+', '');
+  const n = Number(raw);
+  if (Number.isNaN(n)) return { n: null, positive };
+
+  const clamped = Math.min(9999, Math.max(0, n));
+  if (clamped === 0) return { n: null, positive };
+  return { n: positive ? `+${clamped}` : `${clamped}`, positive };
+};

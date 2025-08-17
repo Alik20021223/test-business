@@ -1,10 +1,10 @@
-import { getLineHeightPx } from '@/utils';
+import { getLineHeightPx } from '@/shared/utils';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 type WrapCalc = {
   // Кол-во строк храним как пустой массив нужной длины, чтобы твой текущий код с length не ломать
   lines: string[];
-  lineHeight: number;           // px
+  lineHeight: number; // px
   indicatorShouldDrop: boolean; // нужно ли уронить индикатор на строку ниже
 
   // Полезно для отладки, можно не использовать снаружи
@@ -14,7 +14,7 @@ type WrapCalc = {
 
 export function useTextWrap(
   text: string,
-  deps: any[] = [],
+  deps: number[] = [],
   opts?: { indicatorWidth?: number; indicatorGap?: number },
 ): [WrapCalc, React.RefObject<HTMLDivElement | null>] {
   const { indicatorWidth = 22, indicatorGap = 8 } = opts || {};
@@ -29,7 +29,7 @@ export function useTextWrap(
     const el = ref.current;
     if (!el) return;
 
-    const lineHeightPx = getLineHeightPx(el)
+    const lineHeightPx = getLineHeightPx(el);
 
     // Точная разбивка на строки через Range API
     const range = document.createRange();
@@ -39,14 +39,8 @@ export function useTextWrap(
 
     const width = el.clientWidth; // фактическая доступная ширина
     const lastRectWidth = rects.length ? rects[rects.length - 1].width : 0;
-    console.log(rects.length ? rects[rects.length - 1].width : 0);
-    
-
     // Проверяем, влезает ли индикатор справа от последней строки с учётом зазора
-    
-    
     const availableOnLastLine = width - (indicatorWidth + indicatorGap);
-    console.log("lastRectWidth:", lastRectWidth, "availableOnLastLine: ", availableOnLastLine);
     const indicatorShouldDrop = lastRectWidth > availableOnLastLine;
 
     setCalc({

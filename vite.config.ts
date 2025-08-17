@@ -25,7 +25,7 @@ export default defineConfig({
       '@assets': path.resolve(__dirname, 'src/app/assets'),
 
       '@components': path.resolve(__dirname, 'src/components'),
-      '@shadcn': path.resolve(__dirname, 'src/components/ui'),
+      '@shadcn': path.resolve(__dirname, 'src/shared/shadcn'),
 
       '@shared': path.resolve(__dirname, 'src/shared'),
       '@utils': path.resolve(__dirname, 'src/shared/utils'),
