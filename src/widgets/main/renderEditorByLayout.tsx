@@ -1,12 +1,12 @@
 import ImageTextEditor from '@entities/main/ui/image-text-editor';
-import { LayoutType, SubmitImageType } from '@entities/main/types';
+import { LayoutType, SubmitImageTypeHeaderLayout } from '@entities/main/types';
 import OnlyTextEditor from '@entities/main/ui/only-text-editor';
 import LeftImageTextEditor from '@entities/main/ui/left-image-text-editor';
 
 interface RenderEditorByLayoutProps {
   layout: LayoutType;
   value: string;
-  onSubmit: (data: SubmitImageType) => void;
+  onSubmit: (data: SubmitImageTypeHeaderLayout) => void;
   onClose: () => void;
   setHeaderLayout: (value: LayoutType) => void;
 }

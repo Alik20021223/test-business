@@ -6,7 +6,6 @@ interface BlockEditProps {
   children: ReactNode;
   onSubmit: () => void;
   valueText: string;
-  initialText?: string;
   onClose: () => void;
   headerLayout: LayoutType;
   setHeaderLayout: (value: LayoutType) => void;
@@ -19,13 +18,12 @@ const BlockEdit: React.FC<BlockEditProps> = ({
   onClose,
   setHeaderLayout,
   headerLayout,
-  initialText,
 }) => {
-  const canSubmit = (valueText ?? '').trim() !== (initialText ?? '').trim();
+  const canSubmit = Boolean((valueText ?? '').trim());
 
   return (
     <>
-      <section className='space-y-4'>
+      <section>
         <HeaderBlock
           onSubmit={onSubmit}
           canSubmit={canSubmit}

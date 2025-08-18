@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@lib/utils';
 import BlockEdit from '@feature/block-edit';
-import { LayoutType, SubmitImageType } from '@entities/main/types';
+import { LayoutType, SubmitImageTypeHeaderLayout } from '@entities/main/types';
 
 interface OnlyTextEditorProps {
   headerLayout: LayoutType;
   initialText?: string;
-  onSubmit?: (text: SubmitImageType) => void;
+  onSubmit?: (text: SubmitImageTypeHeaderLayout) => void;
   className?: string;
   setHeaderLayout: (value: LayoutType) => void;
   onClose: () => void;
@@ -34,13 +34,12 @@ const OnlyTextEditor: React.FC<OnlyTextEditorProps> = ({
     autoGrow();
   }, []);
 
-  const submit = () => onSubmit?.({ text: text });
+  const submit = () => onSubmit?.({ text: text, headerLayout: headerLayout });
 
   return (
     <BlockEdit
       onSubmit={submit}
       valueText={text}
-      initialText={initialText}
       headerLayout={headerLayout}
       setHeaderLayout={setHeaderLayout}
       onClose={onClose}

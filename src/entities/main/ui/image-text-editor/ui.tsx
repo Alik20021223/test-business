@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { cn } from '@lib/utils';
-import ImageFile from '@assets/img-file.png';
+import ImageFile from '@assets/img-file.svg';
 import BlockEdit from '@feature/block-edit';
-import { LayoutType } from '@entities/main/types';
+import { LayoutType, SubmitImageTypeHeaderLayout } from '@entities/main/types';
 
 type Variant = 'textImage' | 'imageText';
 
@@ -11,12 +11,7 @@ interface ImageTextEditorProps {
   headerLayout: LayoutType; // ориентация
   initialText?: string; // начальное значение текста (опц.)
   imageUrl?: string; // начальное изображение (опц.)
-  onSubmit?: (data: {
-    // опц. — если нужно забрать результат наружу
-    text: string;
-    file?: File | null;
-    imageUrl?: string; // фактический url (blob или внешний)
-  }) => void;
+  onSubmit?: (data: SubmitImageTypeHeaderLayout) => void;
   className?: string;
   setHeaderLayout: (value: LayoutType) => void;
   onClose: () => void;
@@ -100,14 +95,13 @@ const ImageTextEditor: React.FC<ImageTextEditorProps> = ({
   };
 
   const submit = () => {
-    onSubmit?.({ text, file, imageUrl: imgUrl });
+    onSubmit?.({ text, file, imageUrl: imgUrl, headerLayout });
   };
 
   return (
     <BlockEdit
       onSubmit={submit}
       valueText={text}
-      initialText={initialText}
       headerLayout={headerLayout}
       setHeaderLayout={setHeaderLayout}
       onClose={onClose}
@@ -115,7 +109,7 @@ const ImageTextEditor: React.FC<ImageTextEditorProps> = ({
       <div
         className={cn(
           'border-gradient flex overflow-hidden rounded-[25px] bg-white',
-          variant === 'textImage' ? 'flex-col' : 'flex-col-reverse',
+          variant === 'imageText' ? 'flex-col' : 'flex-col-reverse',
           className,
         )}
       >
@@ -128,49 +122,53 @@ const ImageTextEditor: React.FC<ImageTextEditorProps> = ({
         />
 
         {/* Зона изображения */}
-        <div
-          className={cn(
-            'group relative h-[181px] w-full bg-[#F1F6FD] select-none',
-            variant === 'textImage' ? 'rounded-t-[25px]' : 'rounded-b-[25px]',
-          )}
-          onClick={pickFile}
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={onDrop}
-          role='button'
-          aria-label='Upload image'
-          tabIndex={0}
-          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && pickFile()}
-        >
-          {imgUrl ? (
-            <>
-              <img src={imgUrl} alt='' className='h-full w-full object-cover' />
-              <button
-                type='button'
-                onClick={clearImage}
-                className='absolute top-2 right-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/70'
-                aria-label='Remove image'
-              >
-                <X className='h-4 w-4' />
-              </button>
-            </>
-          ) : (
-            <div className='absolute inset-0 flex items-center justify-center'>
-              <img
-                src={ImageFile as unknown as string}
-                alt='upload placeholder'
-                className='h-auto w-40 opacity-90'
-              />
-            </div>
-          )}
+        <div className={`${variant === 'textImage' ? 'px-[1px] pb-[1px]' : 'px-[1px] pt-[1px]'}`}>
+          <div
+            className={cn(
+              'group relative h-[181px] w-full bg-[#F1F6FD] select-none',
+              variant === 'textImage'
+                ? 'rounded-t-[5px] rounded-b-[24px]'
+                : 'rounded-t-[24px] rounded-b-[5px]',
+            )}
+            onClick={pickFile}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={onDrop}
+            role='button'
+            aria-label='Upload image'
+            tabIndex={0}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && pickFile()}
+          >
+            {imgUrl ? (
+              <>
+                <img src={imgUrl} alt='' className='h-full w-full object-cover' />
+                <button
+                  type='button'
+                  onClick={clearImage}
+                  className='absolute top-2 right-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/70'
+                  aria-label='Remove image'
+                >
+                  <X className='h-4 w-4' />
+                </button>
+              </>
+            ) : (
+              <div className='absolute inset-0 flex items-center justify-center'>
+                <img
+                  src={ImageFile as unknown as string}
+                  alt='upload placeholder'
+                  className='h-[77px] w-[121px] cursor-pointer opacity-90'
+                />
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Текст — локально */}
-        <div className='flex w-full'>
+        <div className='flex w-full px-[15px]'>
           <textarea
             ref={taRef}
             rows={1}
             className={cn(
-              'min-h-[20px] w-full resize-none px-4 text-sm leading-[140%] font-normal text-slate-700 outline-none',
+              'flex min-h-[20px] w-[313px] resize-none justify-center text-sm leading-[140%] font-normal text-slate-700 outline-none',
               'placeholder:text-[#C4C4C4]',
               'break-words whitespace-pre-wrap', // переносы
               'max-h-64 overflow-hidden', // ограничение по высоте (опц.)

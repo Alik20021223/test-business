@@ -1,15 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { cn } from '@lib/utils';
-import ImageFile from '@assets/img-file.png';
+import ImageFile from '@assets/img-file.svg';
 import BlockEdit from '@feature/block-edit';
-import { LayoutType } from '@entities/main/types';
+import { LayoutType, SubmitImageTypeHeaderLayout } from '@entities/main/types';
 
 interface LeftImageTextEditorProps {
   headerLayout: LayoutType;
   initialText?: string;
   imageUrl?: string;
-  onSubmit?: (data: { text: string; file?: File | null; imageUrl?: string }) => void;
+  onSubmit?: (data: SubmitImageTypeHeaderLayout) => void;
   className?: string;
   setHeaderLayout: (value: LayoutType) => void;
   onClose: () => void;
@@ -99,7 +99,7 @@ const LeftImageTextEditor: React.FC<LeftImageTextEditorProps> = ({
     taRef.current?.focus();
   };
 
-  const submit = () => onSubmit?.({ text, file, imageUrl: imgUrl });
+  const submit = () => onSubmit?.({ text, file, imageUrl: imgUrl, headerLayout: headerLayout });
 
   const twoLinesOrLess = lines <= 2;
 
@@ -107,7 +107,6 @@ const LeftImageTextEditor: React.FC<LeftImageTextEditorProps> = ({
     <BlockEdit
       onSubmit={submit}
       valueText={text}
-      initialText={initialText}
       headerLayout={headerLayout}
       setHeaderLayout={setHeaderLayout}
       onClose={onClose}
