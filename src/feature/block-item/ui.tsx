@@ -30,7 +30,7 @@ export default function BlockItem({ slice }: { slice: SliceKey }) {
             onMouseEnter={() => { if (!editing) setFocus(slice); }}
             onClick={() => { if (!editing) toggleSelected(slice); }}
         >
-            <div className="p-2">
+            <div>
                 <ContentPanel
                     slice={slice}
                     defaultLayout={ui.layout}

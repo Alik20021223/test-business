@@ -1,28 +1,27 @@
-import { getLineHeightPx } from '@/shared/utils';
+import { getLineHeightPx } from '@shared/utils';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-type WrapCalc = {
-  // Кол-во строк храним как пустой массив нужной длины, чтобы твой текущий код с length не ломать
+export interface WrapCalc {
   lines: string[];
-  lineHeight: number; // px
-  indicatorShouldDrop: boolean; // нужно ли уронить индикатор на строку ниже
+  lineHeight: number;
+  indicatorShouldDrop: boolean;
+  containerWidth: number;
+  lastLineWidth: number;
+}
 
-  // Полезно для отладки, можно не использовать снаружи
-  containerWidth?: number;
-  lastLineWidth?: number;
-};
-
-export function useTextWrap(
+export function useTextWrap<T extends HTMLElement = HTMLDivElement>(
   text: string,
   deps: number[] = [],
   opts?: { indicatorWidth?: number; indicatorGap?: number },
-): [WrapCalc, React.RefObject<HTMLDivElement | null>] {
+): [WrapCalc, React.MutableRefObject<T | null>] {
   const { indicatorWidth = 22, indicatorGap = 8 } = opts || {};
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<T>(null);
   const [calc, setCalc] = useState<WrapCalc>({
     lines: [],
     lineHeight: 20,
     indicatorShouldDrop: false,
+    containerWidth: 0,
+    lastLineWidth: 0,
   });
 
   const recompute = useCallback(() => {
@@ -30,29 +29,35 @@ export function useTextWrap(
     if (!el) return;
 
     const lineHeightPx = getLineHeightPx(el);
+    let lineCount = 1;
+    let lastLineWidth = 0;
 
-    // Точная разбивка на строки через Range API
-    const range = document.createRange();
-    range.selectNodeContents(el);
-    const rects = Array.from(range.getClientRects()); // по одному rect на каждую строку
-    const lineCount = Math.max(1, rects.length);
+    if (el.tagName === 'TEXTAREA') {
+      // textarea → считаем через scrollHeight
+      lineCount = Math.max(1, Math.ceil(el.scrollHeight / lineHeightPx));
+      lastLineWidth = el.scrollWidth % el.clientWidth || el.clientWidth;
+    } else {
+      // div/contenteditable → через Range API
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const rects = Array.from(range.getClientRects());
+      lineCount = Math.max(1, rects.length);
+      lastLineWidth = rects.length ? rects[rects.length - 1].width : 0;
+    }
 
-    const width = el.clientWidth; // фактическая доступная ширина
-    const lastRectWidth = rects.length ? rects[rects.length - 1].width : 0;
-    // Проверяем, влезает ли индикатор справа от последней строки с учётом зазора
+    const width = el.clientWidth;
     const availableOnLastLine = width - (indicatorWidth + indicatorGap);
-    const indicatorShouldDrop = lastRectWidth > availableOnLastLine;
+    const indicatorShouldDrop = lastLineWidth > availableOnLastLine;
 
     setCalc({
-      lines: Array.from({ length: lineCount }, () => ''), // нам важна только длина
+      lines: Array.from({ length: lineCount }, () => ''),
       lineHeight: lineHeightPx,
       indicatorShouldDrop,
       containerWidth: width,
-      lastLineWidth: lastRectWidth,
+      lastLineWidth,
     });
   }, [indicatorGap, indicatorWidth, text]);
 
-  // Пересчёт при ресайзе текста/контейнера
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -61,7 +66,6 @@ export function useTextWrap(
     return () => ro.disconnect();
   }, [recompute]);
 
-  // Пересчёт при изменении текста/зависимостей
   useLayoutEffect(() => {
     recompute();
   }, [recompute, ...deps]);

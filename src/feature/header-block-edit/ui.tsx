@@ -134,18 +134,18 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({
             </PopoverContent>
           </Popover>
 
-          <Button
+          <button
             onClick={onSubmit}
             disabled={!canSubmit}
             className={cn(
-              'h-6 w-6 rounded-[21px] p-0 text-white',
+              'h-6 w-6 rounded-[21px] p-0 text-white flex justify-center items-center cursor-pointer ',
               !canSubmit
                 ? 'cursor-not-allowed bg-[#DCDCDC] disabled:opacity-100'
                 : 'bg-gradient-btn-active',
             )}
           >
-            <img src={ArrowUp} alt='arrow-up' className='h-3 w-2.5' />
-          </Button>
+            <img src={ArrowUp} alt='arrow-up' />
+          </button>
         </div>
       </div>
     </header>

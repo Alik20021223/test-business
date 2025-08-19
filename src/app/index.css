@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Urbanist', sans-serif;
   font-optical-sizing: auto;
@@ -50,7 +54,7 @@ body {
 }
 
 .border-gradient {
-  border: 1px solid #34b8ff; /* прозрачная рамка */
+  outline: 1px solid #34b8ff; /* прозрачная рамка */
   border-radius: 25px;
   /* 2 слоя: белая подложка внутри + градиент по границе */
 }

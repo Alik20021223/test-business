@@ -157,14 +157,14 @@ const LeftImageTextEditor: React.FC<LeftImageTextEditorProps> = ({
 
             {/* Обёртка текста — центр по вертикали при 1–2 строках */}
             <div
-              className={cn(twoLinesOrLess ? 'flex items-center' : '')}
-              style={{ minHeight: twoLinesOrLess ? TILE : undefined, flex: 1 }}
+              className={cn(twoLinesOrLess ? 'flex items-center' : '', 'w-[246px]')}
+              style={{ minHeight: twoLinesOrLess ? TILE : undefined }}
             >
               <textarea
                 ref={taRef}
                 rows={1}
                 className={cn(
-                  'block w-full resize-none bg-transparent outline-none',
+                  'block w-full resize-none bg-transparent outline-none ',
                   'placeholder:text-[#C4C4C4]',
                   'text-sm leading-[140%] font-normal text-slate-700',
                 )}

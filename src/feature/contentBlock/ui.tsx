@@ -59,7 +59,7 @@ export default function ContentPanel({
     const cardClass = cn(
         'shadow-block w-[345px] rounded-[25px]',
         isEditing
-            ? 'bg-white border-gradient'
+            ? 'bg-white'
             : uiFocused && uiSelected
                 ? ' border-gradient blue-shadow bg-[#F1F6FD]' // ✅ и рамка, и голубая заливка
                 : uiFocused
@@ -77,7 +77,7 @@ export default function ContentPanel({
 
     return (
         <div className={cn('w-full space-y-4', className)}>
-            <div className={cn(cardClass, stateClasses)}>
+            <div className={cn(cardClass, stateClasses, 'w-[345px]')}>
                 {isEditing ? (
                     <RenderEditorByLayout
                         onClose={() => (onCloseEdit ? onCloseEdit() : setOpenEdit(false))}
