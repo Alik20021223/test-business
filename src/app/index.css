@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 body {
-  font-family: "Urbanist", sans-serif;
+  font-family: 'Urbanist', sans-serif;
   font-optical-sizing: auto;
   box-sizing: border-box;
   background: #fcfcfc;
@@ -12,8 +12,7 @@ body {
   border: 0.5px solid #b4b4b4; /* заменяет border-indicator */
   font-size: 12px;
   line-height: 18px;
-  color: #B4B4B4;
-
+  color: #b4b4b4;
 
   display: flex;
   align-items: center;
@@ -25,10 +24,10 @@ body {
 }
 
 .indicator-blue {
-    background: linear-gradient(180deg, #3FCCFF 0%, #068DFB 100%);
-    box-shadow: 0px 1px 5.3px 0px rgba(20, 157, 255, 0.21);
-    color: white;
-    border: none;
+  background: linear-gradient(180deg, #3fccff 0%, #068dfb 100%);
+  box-shadow: 0px 1px 5.3px 0px rgba(20, 157, 255, 0.21);
+  color: white;
+  border: none;
 }
 
 .wrap-text {
@@ -39,18 +38,34 @@ body {
 }
 
 .shadow-block {
-    box-shadow: 0px 1px 8px 0px #0000001A;
+  box-shadow: 0px 1px 8px 0px #0000001a;
+}
+
+.blue-shadow {
+  box-shadow: 0px 1px 5.3px 0px #149dff36;
 }
 
 .bg-gradient-btn-active {
-    background: linear-gradient(230.09deg, #2BD1FF -50.42%, #34B8FF 33.26%, #229CFD 113.78%);
+  background: linear-gradient(230.09deg, #2bd1ff -50.42%, #34b8ff 33.26%, #229cfd 113.78%);
 }
 
 .border-gradient {
-  border: 1px solid transparent;           /* прозрачная рамка */
+  border: 1px solid #34b8ff; /* прозрачная рамка */
   border-radius: 25px;
   /* 2 слоя: белая подложка внутри + градиент по границе */
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(230.09deg, #2BD1FF -50.42%, #34B8FF 33.26%, #229CFD 113.78%) border-box;
+}
+
+.state-focused .indicator,
+.state-selected .indicator,
+.state-focused.state-selected .indicator {
+  border: 0.5px solid #34b8ff;
+  color: #34b8ff;
+  background-color: transparent;
+}
+
+.state-focused .indicator-blue,
+.state-selected .indicator-blue,
+.state-focused.state-selected .indicator-blue {
+  border: none;
+  color: white;
 }

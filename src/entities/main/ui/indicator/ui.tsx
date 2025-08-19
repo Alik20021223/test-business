@@ -26,7 +26,7 @@ const Indicator = React.forwardRef<HTMLDivElement, IndicatorProps>(
         ].join(' ')}
         style={style}
       >
-        {positive ? `${value}` : value}
+        {positive ? `+${value}` : value}
       </div>
     );
   },

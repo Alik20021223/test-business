@@ -8,3 +8,5 @@ export type SubmitImageTypeHeaderLayout = {
   imageUrl?: string;
   headerLayout: LayoutType;
 };
+
+export type SliceKey = 'A' | 'B' | 'C' | 'D' | 'E';

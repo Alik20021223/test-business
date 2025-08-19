@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+// import { X } from 'lucide-react';
 import { cn } from '@lib/utils';
 import ImageFile from '@assets/img-file.svg';
 import BlockEdit from '@feature/block-edit';
@@ -20,7 +20,7 @@ const TILE = 58; // высота/ширина плитки с картинкой
 const LeftImageTextEditor: React.FC<LeftImageTextEditorProps> = ({
   headerLayout,
   initialText = '',
-  imageUrl,
+  imageUrl = 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600',
   onSubmit,
   className,
   setHeaderLayout,
@@ -81,16 +81,16 @@ const LeftImageTextEditor: React.FC<LeftImageTextEditorProps> = ({
     setFile(f);
   };
 
-  const clearImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setImgUrl(undefined);
-    setFile(null);
-    if (fileRef.current) fileRef.current.value = '';
-    if (objectUrlRef.current) {
-      URL.revokeObjectURL(objectUrlRef.current);
-      objectUrlRef.current = null;
-    }
-  };
+//   const clearImage = (e: React.MouseEvent) => {
+//     e.stopPropagation();
+//     setImgUrl(undefined);
+//     setFile(null);
+//     if (fileRef.current) fileRef.current.value = '';
+//     if (objectUrlRef.current) {
+//       URL.revokeObjectURL(objectUrlRef.current);
+//       objectUrlRef.current = null;
+//     }
+//   };
 
   const onDrop: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
@@ -135,14 +135,14 @@ const LeftImageTextEditor: React.FC<LeftImageTextEditorProps> = ({
               {imgUrl ? (
                 <>
                   <img src={imgUrl} alt='' className='h-full w-full object-cover' />
-                  <span
+                  {/* <span
                     onClick={clearImage}
                     className='absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-black/60 text-white'
                     role='button'
                     aria-label='Remove'
                   >
                     <X className='h-3 w-3' />
-                  </span>
+                  </span> */}
                 </>
               ) : (
                 <div className='flex h-full w-full items-center justify-center'>
