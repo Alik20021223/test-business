@@ -81,16 +81,16 @@ const LeftImageTextEditor: React.FC<LeftImageTextEditorProps> = ({
     setFile(f);
   };
 
-//   const clearImage = (e: React.MouseEvent) => {
-//     e.stopPropagation();
-//     setImgUrl(undefined);
-//     setFile(null);
-//     if (fileRef.current) fileRef.current.value = '';
-//     if (objectUrlRef.current) {
-//       URL.revokeObjectURL(objectUrlRef.current);
-//       objectUrlRef.current = null;
-//     }
-//   };
+  //   const clearImage = (e: React.MouseEvent) => {
+  //     e.stopPropagation();
+  //     setImgUrl(undefined);
+  //     setFile(null);
+  //     if (fileRef.current) fileRef.current.value = '';
+  //     if (objectUrlRef.current) {
+  //       URL.revokeObjectURL(objectUrlRef.current);
+  //       objectUrlRef.current = null;
+  //     }
+  //   };
 
   const onDrop: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
@@ -164,7 +164,7 @@ const LeftImageTextEditor: React.FC<LeftImageTextEditorProps> = ({
                 ref={taRef}
                 rows={1}
                 className={cn(
-                  'block w-full resize-none bg-transparent outline-none ',
+                  'block w-full resize-none bg-transparent outline-none',
                   'placeholder:text-[#C4C4C4]',
                   'text-sm leading-[140%] font-normal text-slate-700',
                 )}

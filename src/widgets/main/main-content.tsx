@@ -1,13 +1,11 @@
-import BlocksList from "./block-list-content";
-
-
+import BlocksList from './block-list-content';
 
 const MainContent = () => {
-    return (
-        <div className="flex justify-center w-full">
-            <BlocksList />
-        </div>
-    );
+  return (
+    <div className='flex w-full justify-center'>
+      <BlocksList />
+    </div>
+  );
 };
 
 export default MainContent;

@@ -138,7 +138,7 @@ const HeaderBlock: React.FC<HeaderBlockProps> = ({
             onClick={onSubmit}
             disabled={!canSubmit}
             className={cn(
-              'h-6 w-6 rounded-[21px] p-0 text-white flex justify-center items-center cursor-pointer ',
+              'flex h-6 w-6 cursor-pointer items-center justify-center rounded-[21px] p-0 text-white',
               !canSubmit
                 ? 'cursor-not-allowed bg-[#DCDCDC] disabled:opacity-100'
                 : 'bg-gradient-btn-active',

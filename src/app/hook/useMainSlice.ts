@@ -3,8 +3,6 @@ import { useShallow } from 'zustand/shallow';
 import { MainState, useMainStore } from '@entities/main/store';
 import type { IndicatorState, SliceKey } from '@entities/main/types';
 
-
-
 type SliceData = {
   text: string;
   setText: (t: string) => void;
